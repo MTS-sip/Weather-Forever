@@ -4,5 +4,5 @@
     "lib": ["DOM", "DOM.Iterable", "ES2020"],
     "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src","index.html"]
 }

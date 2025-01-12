@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 import { Router } from 'express';
 import weatherRoutes from './weatherRoutes.js';
 
