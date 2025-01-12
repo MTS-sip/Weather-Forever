@@ -1,29 +1,28 @@
 {
-  "compilerOptions": {
-    /* Language and Environment */
-    "target": "ES2020" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-
-    /* Modules */
-    "module": "ESNext" /* Specify what module code is generated. */,
-    "moduleResolution": "Bundler" /* Specify how TypeScript looks up a file from a given module specifier. */,
-
-    /* JavaScript Support */
-    "allowJs": true /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */,
-    "checkJs": true /* Enable error reporting in type-checked JavaScript files. */,
-
-    /* Interop Constraints */
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-    "allowSyntheticDefaultImports": true /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
-
-    /* Type Checking */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "exactOptionalPropertyTypes": true /* Interpret optional property types as written, rather than adding 'undefined'. */,
-    "noImplicitReturns": true /* Enable error reporting for codepaths that do not explicitly return in a function. */,
-    "noImplicitOverride": true /* Ensure overriding members in derived classes are marked with an override modifier. */,
-    "useUnknownInCatchVariables": true /* Ensure 'unknown' is used for catch clause variables. */
+  "compilerOptions": { // compilerOptions, most important part, tells (tsc)TypeScript compiler how to behave
+    "target": "ES2020", //specifies vers of ECMAScript (JavaScript) that TypeScript code compiles to.
+    "module": "ESNext", //specifies module code generation method the tsc should use.
+    "moduleResolution": "Node", // tsc will use the Node.js module resolution algorithm
+    "outDir": "./dist", // tsc places all compiled JavaScript files into dist directory
+    "rootDir": "./src", // tsc will cwill consider src directory as root directory for all source files.
+    "strict": true, // enables all of TypeScript's strict type-checking options.
+    "esModuleInterop": true, // enables interoperability between CommonJS and ES Modules.
+    "forceConsistentCasingInFileNames": true, // ensures that file names are treated with consistent casing.
+    "skipLibCheck": true // tsc skips type checking of all declaration files (.d.ts)
   },
+
+  "include": ["src/**/*"], // **/* pattern is a glob pattern, matches all files recursively within src dir
+"exclude": ["node_modules", "dist"], // excludes the specified node_modules & dist dir(s) from compilation
+
+"scripts": {
+  "start": "npm run server",
+  "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+  "build": "npm run client:build && npm run server:build",
+  "render-build": "npm install && npm run build",
+  "server": "node server/dist/server.js",
+  "server:dev": "nodemon server/src/server.ts",
+  "server:build": "tsc --project server/tsconfig.json",
+  "client:dev": "vite",
+  "client:build": "vite build"
+}
 }

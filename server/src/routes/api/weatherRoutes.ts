@@ -1,11 +1,28 @@
-
+// ES module import statement that imports specific components from the express library
 import { Router, Request, Response } from 'express';
 import HistoryService from '../../service/historyService.js';
 import WeatherService from '../../service/weatherService.js';
 
 const router = Router();
 
-// POST Request with city name to retrieve weather data
+// POST Request, city name, retrieves weather data
+
+router.post('/', async (req: Request, res: Response) => {
+  const { cityName } = req.body;
+  if (!cityName) {
+    return res.status(400).json({ error: 'City name is required' });
+  }
+
+  try {
+    const weatherData = await WeatherService.getWeatherForCity(cityName);
+    await HistoryService.addCity(cityName);
+    res.json(weatherData);
+  } catch (error) {
+    res.status(500).json({ error: error.message || 'Error fetching weather data' });
+  }
+});
+/*
+
 router.post('/', async (req: Request, res: Response) => {
   const { cityName } = req.body;
   if (!cityName) {
@@ -19,8 +36,10 @@ router.post('/', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Error fetching weather data' });
   }
 });
+*/
 
-// GET weather data from city name (assumes a query parameter)
+
+// GET weather data from city name, assumes query parameter
 router.get('/:cityName', async (req: Request, res: Response) => {
   const { cityName } = req.params;
   try {

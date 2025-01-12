@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json", // allows this config to inherit settings from another tsconfig   
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "moduleResolution": "Node",
+    "types": ["node"],
+    "module": "ESNext",
+    "module": "CommonJS"
+  },
+  "include": ["src"] // specifies the files & dir(s) that tsc should include when compiling
+}
