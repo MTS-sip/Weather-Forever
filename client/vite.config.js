@@ -25,7 +25,18 @@ export default defineConfig({
 */
 
 export default defineConfig({
-  root: './client', // Ensure this points to the directory containing index.html
+  root: './client', 
+  server: {
+    port: 3000,
+    open: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
   build: {
     outDir: path.resolve(__dirname, './dist/client'), // Adjust the output directory
     emptyOutDir: true,
