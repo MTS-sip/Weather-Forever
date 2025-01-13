@@ -7,6 +7,7 @@ import routes from './routes/index.js';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+
 // Serve static files from the client dist folder
 app.use(express.static(path.resolve(__dirname, '../../../client/dist')));
 
@@ -21,7 +22,7 @@ app.use(routes);
 app.use((req, res, next) => {
   res.status(404).send({ error: 'Not Found' });
 });
-app.use((err, req, res, next) => {
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error(err.stack);
   res.status(500).send({ error: 'Something went wrong!' });
 });
