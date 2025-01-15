@@ -1,16 +1,3 @@
-/*
-DELETE UNNECESSARY CODE
-
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
- 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const router = Router();
-
-// check for bug, should route to serve index.html
-*/
-
 import path from 'path';
 import { Router, Request, Response } from 'express';
 

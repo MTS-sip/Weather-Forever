@@ -19,10 +19,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
 // Error handling middleware
-app.use((req, res, next) => {
+// Error handling middleware
+app.use((_req, res) => {
   res.status(404).send({ error: 'Not Found' });
 });
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+
+app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error(err.stack);
   res.status(500).send({ error: 'Something went wrong!' });
 });

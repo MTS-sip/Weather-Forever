@@ -16,28 +16,23 @@ interface Weather {
 }
 
 class WeatherService {
-  private baseURL = process.env.API_BASE_URL;
-  private apiKey = process.env.OPENWEATHER_API_KEY;
+  private baseURL = process.env.API_BASE_URL!;
+  private apiKey = process.env.OPENWEATHER_API_KEY!;
 
   private async fetchLocationData(city: string): Promise<Coordinates> {
-    const response = await fetch(
-      `${this.baseURL}/weather?q=${city}&appid=${this.apiKey}`
-    );
+    const response = await fetch(`${this.baseURL}/weather?q=${city}&appid=${this.apiKey}`);
     if (!response.ok) {
       throw new Error('Failed to fetch location data');
     }
     const data = await response.json();
+    if (!data.coord) throw new Error('Invalid location data format');
     return { lat: data.coord.lat, lon: data.coord.lon };
   }
 
-  private async fetchWeatherData(
-    coordinates: Coordinates
-  ): Promise<{ current: Weather; forecast: Weather[] }> {
+  private async fetchWeatherData(coordinates: Coordinates): Promise<{ current: Weather; forecast: Weather[] }> {
     const { lat, lon } = coordinates;
 
-    const response = await fetch(
-      `${this.baseURL}/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`
-    );
+    const response = await fetch(`${this.baseURL}/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`);
     if (!response.ok) {
       throw new Error('Failed to fetch weather data');
     }
@@ -52,13 +47,12 @@ class WeatherService {
   private async fetchCurrentWeatherData(coordinates: Coordinates): Promise<Weather> {
     const { lat, lon } = coordinates;
 
-    const response = await fetch(
-      `${this.baseURL}/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`
-    );
+    const response = await fetch(`${this.baseURL}/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`);
     if (!response.ok) {
       throw new Error('Failed to fetch current weather data');
     }
     const data = await response.json();
+    if (!data.main || !data.weather) throw new Error('Invalid weather data format');
 
     return {
       city: data.name,
@@ -72,6 +66,7 @@ class WeatherService {
   }
 
   private buildForecastArray(data: any): Weather[] {
+    if (!data.list || !data.city) throw new Error('Invalid forecast data format');
     return data.list
       .filter((_: any, index: number) => index % 8 === 0)
       .map((entry: any) => ({
