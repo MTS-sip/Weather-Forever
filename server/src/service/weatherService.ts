@@ -15,6 +15,25 @@ interface Weather {
   humidity: number;
 }
 
+interface WeatherApiResponse {
+  coord: { lat: number; lon: number };
+  weather: { icon: string; description: string }[];
+  main: { temp: number; humidity: number };
+  wind: { speed: number };
+  name: string;
+  dt: number;
+}
+
+interface ForecastApiResponse {
+  list: {
+    dt: number;
+    main: { temp: number; humidity: number };
+    weather: { icon: string; description: string }[];
+    wind: { speed: number };
+  }[];
+  city: { name: string };
+}
+
 class WeatherService {
   private baseURL = process.env.API_BASE_URL!;
   private apiKey = process.env.OPENWEATHER_API_KEY!;
@@ -24,20 +43,23 @@ class WeatherService {
     if (!response.ok) {
       throw new Error('Failed to fetch location data');
     }
-    const data = await response.json();
-    if (!data.coord) throw new Error('Invalid location data format');
+    const data = (await response.json()) as WeatherApiResponse; // Assert type here
     return { lat: data.coord.lat, lon: data.coord.lon };
   }
 
-  private async fetchWeatherData(coordinates: Coordinates): Promise<{ current: Weather; forecast: Weather[] }> {
+  private async fetchWeatherData(
+    coordinates: Coordinates
+  ): Promise<{ current: Weather; forecast: Weather[] }> {
     const { lat, lon } = coordinates;
 
-    const response = await fetch(`${this.baseURL}/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`);
+    const response = await fetch(
+      `${this.baseURL}/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`
+    );
     if (!response.ok) {
       throw new Error('Failed to fetch weather data');
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as ForecastApiResponse; // Assert type here
     const current = await this.fetchCurrentWeatherData(coordinates);
     const forecast = this.buildForecastArray(data);
 
@@ -47,12 +69,13 @@ class WeatherService {
   private async fetchCurrentWeatherData(coordinates: Coordinates): Promise<Weather> {
     const { lat, lon } = coordinates;
 
-    const response = await fetch(`${this.baseURL}/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`);
+    const response = await fetch(
+      `${this.baseURL}/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`
+    );
     if (!response.ok) {
       throw new Error('Failed to fetch current weather data');
     }
-    const data = await response.json();
-    if (!data.main || !data.weather) throw new Error('Invalid weather data format');
+    const data = (await response.json()) as WeatherApiResponse; // Assert type here
 
     return {
       city: data.name,
@@ -65,10 +88,9 @@ class WeatherService {
     };
   }
 
-  private buildForecastArray(data: any): Weather[] {
-    if (!data.list || !data.city) throw new Error('Invalid forecast data format');
+  private buildForecastArray(data: ForecastApiResponse): Weather[] {
     return data.list
-      .filter((_: any, index: number) => index % 8 === 0)
+      .filter((_: any, index: number) => index % 8 === 0) // Filter for daily forecast data
       .map((entry: any) => ({
         city: data.city.name,
         date: new Date(entry.dt * 1000).toLocaleDateString(),
