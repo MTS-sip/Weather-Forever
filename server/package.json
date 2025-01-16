@@ -5,10 +5,10 @@
   "main": "dist/server.js",
   "type": "module",
   "scripts": {
-  "build": "tsc",
-  "start": "npm run build && node dist/server.js",
-  "dev": "npx nodemon"
-
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
+    "start": "npm run build && node dist/server.js",
+    "dev": "npx nodemon"
   },
   "nodemonConfig": {
     "watch": ["src"],
