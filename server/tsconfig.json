@@ -1,4 +1,4 @@
-{
+/*{
   "compilerOptions": {
     "rootDir": "src",  // Source files directory
     "outDir": "dist",  // Output directory relative to the current directory
@@ -12,4 +12,20 @@
   },
   "include": ["src"],   // Compile files in the `src` folder
   "exclude": ["node_modules", "dist", "src/data", "src/tests"] // Exclude unnecessary directories
+}
+*/
+
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ES2020",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "allowJs": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

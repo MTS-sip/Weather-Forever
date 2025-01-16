@@ -1,5 +1,5 @@
-require('dotenv').config()
-
+import dotenv from 'dotenv';
+dotenv.config();
 import { Router } from 'express';
 import apiRoutes from './api/index.js';
 import htmlRoutes from './htmlRoutes.js';
