@@ -1,5 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Define a City class
 class City {
@@ -40,9 +45,10 @@ class HistoryService {
   // Remove a city from the searchHistory.json file
   async deleteCity(cityId: string): Promise<void> {
     const cities = await this.read();
-    const updatedCities = cities.filter(city => city.id !== cityId);
+    const updatedCities = cities.filter((city) => city.id !== cityId);
     await this.write(updatedCities);
   }
 }
 
 export default new HistoryService();
+
