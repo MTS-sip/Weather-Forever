@@ -1,44 +1,12 @@
 import { defineConfig } from 'vite';
-import path from 'path';
-
-
-/*
-// https://vitejs.dev/config/
-export default defineConfig({
-  root: './client',
-  server: {
-    port: 3000,
-    open: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
-  build: {
-    outDir: path.resolve(__dirname, './client/dist'),
-    emptyOutDir: true,
-  },
-});
-*/
 
 export default defineConfig({
-  root: './client', 
-  server: {
-    port: 3000,
-    open: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
+  root: '.', // Set the root directory to the current directory
   build: {
-    outDir: path.resolve(__dirname, './dist/client'), // Adjust the output directory
-    emptyOutDir: true,
+    outDir: 'dist', // Output directory for the build
+    emptyOutDir: true, // Clear the output directory before each build
+    rollupOptions: {
+      input: './index.html', // Entry point for the build
+    },
   },
 });
