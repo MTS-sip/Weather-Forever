@@ -31,3 +31,6 @@ app.get('*', (_req, res) => {
 
 // Start the server
 app.listen(PORT, () => console.log(`Server is running on PORT: ${PORT}`));
+
+console.log('API_BASE_URL:', process.env.API_BASE_URL);
+console.log('OPENWEATHER_API_KEY:', process.env.OPENWEATHER_API_KEY);

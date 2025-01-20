@@ -35,7 +35,7 @@ interface ForecastApiResponse {
 }
 
 class WeatherService {
-  private baseURL = process.env.API_BASE_URL!;
+  private baseURL = `${process.env.API_BASE_URL}/data/2.5`;
   private apiKey = process.env.OPENWEATHER_API_KEY!;
 
   private async fetchLocationData(city: string): Promise<Coordinates> {

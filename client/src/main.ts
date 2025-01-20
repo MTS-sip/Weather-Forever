@@ -30,9 +30,7 @@ const humidityEl: HTMLParagraphElement = document.getElementById(
 
 /*
 
-API Calls
-
-*/
+API Calls orig code
 
 const fetchWeather = async (cityName: string) => {
   const response = await fetch('/api/weather/', {
@@ -49,6 +47,36 @@ const fetchWeather = async (cityName: string) => {
 
   renderCurrentWeather(weatherData[0]);
   renderForecast(weatherData.slice(1));
+};
+*/
+
+/* 
+rplaced API call
+*/
+const fetchWeather = async (cityName: string) => {
+  try {
+    const response = await fetch('/api/weather/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cityName }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch weather data');
+    }
+
+    const weatherData = await response.json();
+
+    console.log('weatherData: ', weatherData);
+
+    renderCurrentWeather(weatherData.current);
+    renderForecast(weatherData.forecast);
+  } catch (error) {
+    console.error('Error fetching weather:', error);
+    alert('Failed to fetch weather data. Please try again.');
+  }
 };
 
 const fetchSearchHistory = async () => {
