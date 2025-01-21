@@ -35,24 +35,24 @@ interface ForecastApiResponse {
 }
 
 class WeatherService {
-  private baseURL = `${process.env.API_BASE_URL}/data/2.5`;
-  private apiKey = process.env.OPENWEATHER_API_KEY!;
+  private baseURL = process.env.API_BASE_URL;
+  private apiKey = process.env.OPENWEATHER_API_KEY;
 
-  /* temp replace for log code
+  constructor() {
+    console.log('API_BASE_URL:', this.baseURL);
+    console.log('OPENWEATHER_API_KEY:', this.apiKey);
 
-  private async fetchLocationData(city: string): Promise<Coordinates> {
-    const response = await fetch(`${this.baseURL}/weather?q=${city}&appid=${this.apiKey}`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch location data');
+    if (!this.baseURL || !this.apiKey) {
+      throw new Error('Missing API_BASE_URL or OPENWEATHER_API_KEY in .env');
     }
-    const data = (await response.json()) as WeatherApiResponse; // Assert type here
-    return { lat: data.coord.lat, lon: data.coord.lon };
+
+    this.baseURL = `${this.baseURL}/data/2.5`;
   }
-  */
+
   private async fetchLocationData(city: string): Promise<Coordinates> {
     const url = `${this.baseURL}/weather?q=${city}&appid=${this.apiKey}`;
-    console.log('Constructed URL:', url); // Debugging line
-  
+    console.log('Constructed URL:', url);
+
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to fetch location data');
@@ -61,9 +61,7 @@ class WeatherService {
     return { lat: data.coord.lat, lon: data.coord.lon };
   }
 
-  private async fetchWeatherData(
-    coordinates: Coordinates
-  ): Promise<{ current: Weather; forecast: Weather[] }> {
+  private async fetchWeatherData(coordinates: Coordinates): Promise<{ current: Weather; forecast: Weather[] }> {
     const { lat, lon } = coordinates;
 
     const response = await fetch(
@@ -73,7 +71,7 @@ class WeatherService {
       throw new Error('Failed to fetch weather data');
     }
 
-    const data = (await response.json()) as ForecastApiResponse; // Assert type here
+    const data = (await response.json()) as ForecastApiResponse;
     const current = await this.fetchCurrentWeatherData(coordinates);
     const forecast = this.buildForecastArray(data);
 
@@ -89,7 +87,7 @@ class WeatherService {
     if (!response.ok) {
       throw new Error('Failed to fetch current weather data');
     }
-    const data = (await response.json()) as WeatherApiResponse; // Assert type here
+    const data = (await response.json()) as WeatherApiResponse;
 
     return {
       city: data.name,
@@ -104,7 +102,7 @@ class WeatherService {
 
   private buildForecastArray(data: ForecastApiResponse): Weather[] {
     return data.list
-      .filter((_: any, index: number) => index % 8 === 0) // Filter for daily forecast data
+      .filter((_: any, index: number) => index % 8 === 0)
       .map((entry: any) => ({
         city: data.city.name,
         date: new Date(entry.dt * 1000).toLocaleDateString(),

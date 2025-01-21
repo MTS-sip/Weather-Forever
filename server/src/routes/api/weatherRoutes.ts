@@ -7,7 +7,7 @@ const router = Router();
 
 // POST Request, city name, retrieves weather data
 
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', async (req, res) => {
   const { cityName } = req.body;
   if (!cityName) {
     return res.status(400).json({ error: 'City name is required' });
@@ -16,10 +16,10 @@ router.post('/', async (req: Request, res: Response) => {
   try {
     const weatherData = await WeatherService.getWeatherForCity(cityName);
     await HistoryService.addCity(cityName);
-    return res.json(weatherData); // Explicit return
+    return res.json(weatherData);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: (err as Error).message || 'Error fetching weather data' }); // Explicit return
+    return res.status(500).json({ error: (err as Error).message || 'Error fetching weather data' });
   }
 });
 

@@ -6,15 +6,14 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define a City class
-class City {
-  constructor(public id: string, public name: string) {}
+interface City {
+  id: string;
+  name: string;
 }
 
 class HistoryService {
   private filePath = path.resolve(__dirname, '../data/searchHistory.json');
 
-  // Read from the searchHistory.json file
   private async read(): Promise<City[]> {
     try {
       const data = await fs.readFile(this.filePath, 'utf8');
@@ -24,25 +23,21 @@ class HistoryService {
     }
   }
 
-  // Write the updated cities array to the searchHistory.json file
   private async write(cities: City[]): Promise<void> {
     await fs.writeFile(this.filePath, JSON.stringify(cities, null, 2));
   }
 
-  // Get cities from the searchHistory.json file
   async getCities(): Promise<City[]> {
     return await this.read();
   }
 
-  // Add a city to the searchHistory.json file
   async addCity(cityName: string): Promise<void> {
     const cities = await this.read();
-    const newCity = new City(new Date().toISOString(), cityName);
+    const newCity: City = { id: new Date().toISOString(), name: cityName };
     cities.push(newCity);
     await this.write(cities);
   }
 
-  // Remove a city from the searchHistory.json file
   async deleteCity(cityId: string): Promise<void> {
     const cities = await this.read();
     const updatedCities = cities.filter((city) => city.id !== cityId);
@@ -51,4 +46,3 @@ class HistoryService {
 }
 
 export default new HistoryService();
-
