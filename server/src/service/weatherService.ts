@@ -38,12 +38,26 @@ class WeatherService {
   private baseURL = `${process.env.API_BASE_URL}/data/2.5`;
   private apiKey = process.env.OPENWEATHER_API_KEY!;
 
+  /* temp replace for log code
+
   private async fetchLocationData(city: string): Promise<Coordinates> {
     const response = await fetch(`${this.baseURL}/weather?q=${city}&appid=${this.apiKey}`);
     if (!response.ok) {
       throw new Error('Failed to fetch location data');
     }
     const data = (await response.json()) as WeatherApiResponse; // Assert type here
+    return { lat: data.coord.lat, lon: data.coord.lon };
+  }
+  */
+  private async fetchLocationData(city: string): Promise<Coordinates> {
+    const url = `${this.baseURL}/weather?q=${city}&appid=${this.apiKey}`;
+    console.log('Constructed URL:', url); // Debugging line
+  
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('Failed to fetch location data');
+    }
+    const data = (await response.json()) as WeatherApiResponse;
     return { lat: data.coord.lat, lon: data.coord.lon };
   }
 
