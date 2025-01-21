@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import { Router } from 'express';
 import weatherRoutes from './weatherRoutes.js';
 

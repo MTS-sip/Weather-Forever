@@ -18,13 +18,18 @@ class HistoryService {
     try {
       const data = await fs.readFile(this.filePath, 'utf8');
       return JSON.parse(data) as City[];
-    } catch {
+    } catch (error) {
+      console.error('Error reading searchHistory.json:', error);
       return [];
     }
   }
-
+  
   private async write(cities: City[]): Promise<void> {
-    await fs.writeFile(this.filePath, JSON.stringify(cities, null, 2));
+    try {
+      await fs.writeFile(this.filePath, JSON.stringify(cities, null, 2));
+    } catch (error) {
+      console.error('Error writing to searchHistory.json:', error);
+    }
   }
 
   async getCities(): Promise<City[]> {
