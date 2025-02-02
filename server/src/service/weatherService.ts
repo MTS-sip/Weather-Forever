@@ -1,4 +1,11 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
+
+/*
 import fetch from 'node-fetch';
+
+*/
 
 interface Coordinates {
   lat: number;
@@ -35,6 +42,20 @@ interface ForecastApiResponse {
 }
 
 class WeatherService {
+  private baseURL: string;
+  private apiKey: string;
+
+  constructor() {
+    this.baseURL = process.env.API_BASE_URL || '';
+    this.apiKey = process.env.OPENWEATHER_API_KEY || '';
+
+    if (!this.baseURL || !this.apiKey) {
+      throw new Error('Missing API_BASE_URL or OPENWEATHER_API_KEY in .env');
+    }
+  }
+  
+  
+  /*
   private baseURL = process.env.API_BASE_URL;
   private apiKey = process.env.OPENWEATHER_API_KEY;
 
@@ -48,6 +69,7 @@ class WeatherService {
 
     this.baseURL = `${this.baseURL}/data/2.5`;
   }
+    */
 
   private async fetchLocationData(city: string): Promise<Coordinates> {
     const url = `${this.baseURL}/weather?q=${city}&appid=${this.apiKey}`;
@@ -119,5 +141,6 @@ class WeatherService {
     return await this.fetchWeatherData(coordinates);
   }
 }
+
 
 export default new WeatherService();
