@@ -50,34 +50,44 @@ class WeatherService {
     }
   }
 
-  private async fetchLocationData(city: string): Promise<Coordinates> {
-    const url = `${this.baseURL}/weather?q=${city}&appid=${this.apiKey}`;
-    console.log('Constructed URL:', url);
+private async fetchLocationData(city: string): Promise<Coordinates> {
+  const url = `${this.baseURL}/data/2.5/weather?q=${city}&appid=${this.apiKey}`;
+  console.log('Constructed URL:', url);
 
+  try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error('Failed to fetch location data');
+      const errorMessage = `Failed to fetch location data: ${response.statusText}`;
+      console.error(errorMessage);
+      throw new Error(errorMessage);
     }
     const data = (await response.json()) as WeatherApiResponse;
     return { lat: data.coord.lat, lon: data.coord.lon };
+  } catch (error) {
+    console.error('Error fetching location data:', error);
+    throw new Error('Failed to fetch location data');
   }
+}
 
-  private async fetchWeatherData(coordinates: Coordinates): Promise<{ current: Weather; forecast: Weather[] }> {
-    const { lat, lon } = coordinates;
 
-    const response = await fetch(
-      `${this.baseURL}/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`
-    );
-    if (!response.ok) {
-      throw new Error('Failed to fetch weather data');
-    }
+private async fetchWeatherData(coordinates: Coordinates): Promise<{ current: Weather; forecast: Weather[] }> {
+  const { lat, lon } = coordinates;
+
+  const forecastUrl = `${this.baseURL}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`;
+  try {
+    const response = await fetch(forecastUrl);
+    if (!response.ok) throw new Error(`Failed to fetch forecast data: ${response.statusText}`);
 
     const data = (await response.json()) as ForecastApiResponse;
     const current = await this.fetchCurrentWeatherData(coordinates);
     const forecast = this.buildForecastArray(data);
 
     return { current, forecast };
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+    throw new Error('Failed to fetch weather data');
   }
+}
 
   private async fetchCurrentWeatherData(coordinates: Coordinates): Promise<Weather> {
     const { lat, lon } = coordinates;
@@ -101,19 +111,19 @@ class WeatherService {
     };
   }
 
-  private buildForecastArray(data: ForecastApiResponse): Weather[] {
-    return data.list
-      .filter((_: any, index: number) => index % 8 === 0)
-      .map((entry: any) => ({
-        city: data.city.name,
-        date: new Date(entry.dt * 1000).toLocaleDateString(),
-        icon: entry.weather[0].icon,
-        iconDescription: entry.weather[0].description,
-        tempF: entry.main.temp,
-        windSpeed: entry.wind.speed,
-        humidity: entry.main.humidity,
-      }));
-  }
+private buildForecastArray(data: ForecastApiResponse): Weather[] {
+  return data.list
+    .filter((entry, index) => index % 8 === 0) // Ensure proper intervals
+    .map(entry => ({
+      city: data.city.name,
+      date: new Date(entry.dt * 1000).toLocaleDateString(),
+      icon: entry.weather[0].icon,
+      iconDescription: entry.weather[0].description,
+      tempF: entry.main.temp,
+      windSpeed: entry.wind.speed,
+      humidity: entry.main.humidity,
+    }));
+}
 
   async getWeatherForCity(city: string): Promise<{ current: Weather; forecast: Weather[] }> {
     const coordinates = await this.fetchLocationData(city);

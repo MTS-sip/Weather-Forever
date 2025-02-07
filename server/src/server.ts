@@ -1,13 +1,22 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import fetch from 'node-fetch';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import routes from './routes/index.js';
 
+import cors from 'cors';
+
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
+
+app.use(cors({
+  origin: '*', // Adjust to allow only specific domains if needed
+  methods: ['GET', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type']
+}));
 
 // ES module replacement for __dirname
 const __filename = fileURLToPath(import.meta.url);
