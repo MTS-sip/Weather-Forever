@@ -1,20 +1,3 @@
-/*{
-  "compilerOptions": {
-    "rootDir": "src",  // Source files directory
-    "outDir": "dist",  // Output directory relative to the current directory
-    "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "esModuleInterop": true,
-    "strict": true,
-    "declaration": false, // Prevent TypeScript from generating declaration files
-    "removeComments": true // Remove comments in compiled files
-  },
-  "include": ["src"],   // Compile files in the `src` folder
-  "exclude": ["node_modules", "dist", "src/data", "src/tests"] // Exclude unnecessary directories
-}
-*/
-
 {
   "compilerOptions": {
     "module": "ESNext",
