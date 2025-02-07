@@ -9,7 +9,9 @@
     "build": "npm run clean && tsc",
     "start": "npm run build && node dist/server.js",
     "dev": "npx nodemon"
+   
   },
+  
   "nodemonConfig": {
     "watch": ["src"],
     "ext": "ts,json,js",

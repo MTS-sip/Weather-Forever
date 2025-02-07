@@ -49,23 +49,6 @@ class WeatherService {
       throw new Error('Missing API_BASE_URL or OPENWEATHER_API_KEY in .env');
     }
   }
-  
-  
-  /*
-  private baseURL = process.env.API_BASE_URL;
-  private apiKey = process.env.OPENWEATHER_API_KEY;
-
-  constructor() {
-    console.log('API_BASE_URL:', this.baseURL);
-    console.log('OPENWEATHER_API_KEY:', this.apiKey);
-
-    if (!this.baseURL || !this.apiKey) {
-      throw new Error('Missing API_BASE_URL or OPENWEATHER_API_KEY in .env');
-    }
-
-    this.baseURL = `${this.baseURL}/data/2.5`;
-  }
-    */
 
   private async fetchLocationData(city: string): Promise<Coordinates> {
     const url = `${this.baseURL}/weather?q=${city}&appid=${this.apiKey}`;
