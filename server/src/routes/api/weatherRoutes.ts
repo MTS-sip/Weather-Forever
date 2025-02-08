@@ -22,7 +22,7 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
-// Save city to search history and GET search history
+// Defines GET route, retrieves search history of the cities
 router.get('/history', async (_req: Request, res: Response) => {
   try {
     const history = await HistoryService.getCities();
@@ -32,6 +32,7 @@ router.get('/history', async (_req: Request, res: Response) => {
   }
 });
 
+// Delete city from search history based on city ID
 router.delete('/history/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
   try {

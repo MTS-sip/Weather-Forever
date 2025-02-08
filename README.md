@@ -60,7 +60,7 @@ Key technologies used for development:
 
 Dev/Starter Code, Bootcamp
 
-Note: BCS Tutoring transfer of knowledge concerning Render's Python vs Node settings; and package.json `render-build` possible loops (delete: '&& cd server && node dist/server.js' ). Missing characters, specifically '/data/2.5' in weatherService.ts at line 98, and argument inversion (!response.ok) to (response.ok) line 58
+Note: BCS Tutoring transfer of knowledge concerning Render's Python vs Node settings; and package.json `render-build` possible loops (delete: '&& cd server && node dist/server.js' ). Missing characters, specifically '/data/2.5' in weatherService.ts at line 96, and argument inversion (!response.ok) to (response.ok) line 58
 
 ## User Story
 

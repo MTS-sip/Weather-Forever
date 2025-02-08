@@ -52,7 +52,6 @@ class WeatherService {
 
 private async fetchLocationData(city: string): Promise<Coordinates> {
   const url = `${this.baseURL}/data/2.5/weather?q=${city}&appid=${this.apiKey}`;
-  console.log('Constructed URL:', url);
 
   try {
     const response = await fetch(url);
@@ -60,6 +59,7 @@ private async fetchLocationData(city: string): Promise<Coordinates> {
       const data = (await response.json()) as WeatherApiResponse;
       return { lat: data.coord.lat, lon: data.coord.lon };
     }
+
    else {
     return{lat: 0, lon: 0};
    }
@@ -72,8 +72,8 @@ private async fetchLocationData(city: string): Promise<Coordinates> {
 
 private async fetchWeatherData(coordinates: Coordinates): Promise<{ current: Weather; forecast: Weather[] }> {
   const { lat, lon } = coordinates;
-
   const forecastUrl = `${this.baseURL}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`;
+
   try {
     const response = await fetch(forecastUrl);
     if (!response.ok) throw new Error(`Failed to fetch forecast data: ${response.statusText}`);
@@ -83,7 +83,8 @@ private async fetchWeatherData(coordinates: Coordinates): Promise<{ current: Wea
     const forecast = this.buildForecastArray(data);
 
     return { current, forecast };
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error fetching weather data:', error);
     throw new Error('Failed to fetch weather data');
   }
@@ -91,9 +92,6 @@ private async fetchWeatherData(coordinates: Coordinates): Promise<{ current: Wea
 
   private async fetchCurrentWeatherData(coordinates: Coordinates): Promise<Weather> {
     const { lat, lon } = coordinates;
-
-    console.log(lat, lon)
-
     const response = await fetch(
       `${this.baseURL}/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`
     );
@@ -101,6 +99,7 @@ private async fetchWeatherData(coordinates: Coordinates): Promise<{ current: Wea
     if (!response.ok) {
       throw new Error('Failed to fetch current weather data');
     }
+    
     const data = (await response.json()) as WeatherApiResponse;
 
     return {
