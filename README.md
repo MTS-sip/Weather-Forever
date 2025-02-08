@@ -4,7 +4,8 @@
 
 Render Web Service Host https://render-deploy-yo2x.onrender.com
 
-GitHub Repository Repo (git@github.com:MTS-sip/Weather-Forever.git)
+GitHub Repository [(GitHub Repository)](https://github.com/MTS-sip/Weather-Forever)
+`SSH: git@github.com:MTS-sip/Weather-Forever.git`
 
 ## Description
 
@@ -31,14 +32,14 @@ Run `npm install`,
 
 ## Images
 
-[URL Mock up 1](./assets/Weather-Forever1.jpeg)
+![URL Mock up 1](./assets/Weather-Forever1.jpeg)
 
-[URL Mock up 2](./assets/Weather-Forever2.jpeg)
+![URL Mock up 2](./assets/Weather-Forever2.jpeg)
 
 ## License
 
 This project is licensed under the [MIT](https://opensource.org/licenses/MIT)  
-[License Badge](https://img.shields.io/badge/LICENSE-MIT-yellow)
+![License Badge](https://img.shields.io/badge/LICENSE-MIT-yellow)
 
 ## Technology
 
@@ -47,7 +48,7 @@ Key technologies used for development:
 - VS Code: IDE [VSC](https://code.visualstudio.com/)
 - Render: Cloud Application Platform [Render](https://render.com/)
 - GitHub [Github](https://github.com/)
-- Vite: Local Dev Server [Vite]https://vite.dev/
+- Vite: Local Dev Server [Vite](https://vite.dev/)
 - Typescript: JavaScript w/syntax for types [Typescript](https://www.typescriptlang.org/)
 - NPM: Package manager for js [npm](https://www.npmjs.com/)
 - CoPilot [CoPilot for GitHub:](https://github.com/features/copilot)
@@ -64,8 +65,8 @@ Note: BCS Tutoring transfer of knowledge concerning Render's Python vs Node sett
 ## User Story
 
 - AS A traveler
-- I WANT to see the weather outlook for multiple cities
-- SO THAT I can plan a trip accordingly
+  I WANT to see the weather outlook for multiple cities
+  SO THAT I can plan a trip accordingly
 
 ## Acceptance Criteria
 
