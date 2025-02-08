@@ -2,8 +2,9 @@
 
 ## Links 🔴 Deployed App at live URL, and GitHub Repository 🔴
 
-Web Service Host[Render] https://render-deploy-yo2x.onrender.com
-Repo, public @ [GitHub](git@github.com:MTS-sip/Weather-Forever.git)
+Render Web Service Host https://render-deploy-yo2x.onrender.com
+
+GitHub Repository Repo (git@github.com:MTS-sip/Weather-Forever.git)
 
 ## Description
 
@@ -30,31 +31,35 @@ Run `npm install`,
 
 ## Images
 
-[URL Mock up 1](./assets/weather-forever1.jpeg)
-![URL Mock up 2](./assets/weather-forever2.jpeg)
+[URL Mock up 1](./assets/Weather-Forever1.jpeg)
+
+[URL Mock up 2](./assets/Weather-Forever2.jpeg)
 
 ## License
 
 This project is licensed under the [MIT](https://opensource.org/licenses/MIT)  
-![License Badge](https://img.shields.io/badge/LICENSE-MIT-yellow)
+[License Badge](https://img.shields.io/badge/LICENSE-MIT-yellow)
 
 ## Technology
 
 Key technologies used for development:
 
-- VS Code [VSC](https://code.visualstudio.com/)
-- Render [Render](https://render.com/)
+- VS Code: IDE [VSC](https://code.visualstudio.com/)
+- Render: Cloud Application Platform [Render](https://render.com/)
 - GitHub [Github](https://github.com/)
-- Vite [Vite]https://vite.dev/
-- npm [npm](https://www.npmjs.com/)
+- Vite: Local Dev Server [Vite]https://vite.dev/
+- Typescript: JavaScript w/syntax for types [Typescript](https://www.typescriptlang.org/)
+- NPM: Package manager for js [npm](https://www.npmjs.com/)
 - CoPilot [CoPilot for GitHub:](https://github.com/features/copilot)
+- HTML [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 
 ## Contributing
 
-[MTS-Sip](https://github.com/MTS-sip)
-Development/Starter Code, Bootcamp
+[MTS-Sip](https://github.com/MTS-sip) Michael S.
 
-Note: BCS Tutoring transfer of knowledge concerning Render's Python vs Node settings; and package.json `render-build` possible loops (delete ). Missing characters, specifically 'api/2.5' in weatherService.ts at line 54, and argument inversion (!response.ok) to (response.ok) line 58
+Dev/Starter Code, Bootcamp
+
+Note: BCS Tutoring transfer of knowledge concerning Render's Python vs Node settings; and package.json `render-build` possible loops (delete: '&& cd server && node dist/server.js' ). Missing characters, specifically '/data/2.5' in weatherService.ts at line 98, and argument inversion (!response.ok) to (response.ok) line 58
 
 ## User Story
 
@@ -67,18 +72,23 @@ Note: BCS Tutoring transfer of knowledge concerning Render's Python vs Node sett
 - GIVEN a weather dashboard with form inputs
 
 - WHEN I search for a city
+
   THEN I am presented with current and future conditions for that city, and that city is added to the search history
 
 - WHEN I view current weather conditions for that city
+
   THEN I am presented with the city name, the date, an icon representation of weather conditions, a description of the weather for the icon's alt tag, the temperature, the humidity, and the wind speed
 
 - WHEN I view future weather conditions for that city
+
   THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 
 - WHEN I click on a city in the search history
+
   THEN I am again presented with current and future conditions for that city
 
 - WHEN I click on the trash can icon next to a city in the search history
+
   THEN the city is removed from the search history
 
 ## README
