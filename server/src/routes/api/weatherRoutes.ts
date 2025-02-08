@@ -5,9 +5,7 @@ import WeatherService from '../../service/weatherService.js';
 
 const router = Router();
 
-// POST Request, city name, retrieves weather data
-
-
+// POST Request, city name, retrieves weather data from the OpenWeather API
 router.post('/', async (req: Request, res: Response) => {
   const { cityName } = req.body;
   if (!cityName) {
@@ -21,18 +19,6 @@ router.post('/', async (req: Request, res: Response) => {
   } catch (err) {
     console.error('Weather API error:', err);
     return res.status(500).json({ error: (err as Error).message || 'Error fetching weather data' });
-  }
-});
-
-
-// GET weather data from city name, assumes query parameter
-router.get('/:cityName', async (req: Request, res: Response) => {
-  const { cityName } = req.params;
-  try {
-    const weatherData = await WeatherService.getWeatherForCity(cityName);
-    res.json(weatherData);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching weather data' });
   }
 });
 
@@ -55,6 +41,5 @@ router.delete('/history/:id', async (req: Request, res: Response) => {
       res.status(500).json({ error: 'Error deleting city from history' });
   }
 });
-
 
 export default router;
