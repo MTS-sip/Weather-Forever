@@ -4,8 +4,6 @@
 
 Render Web Service Host [Render](https://render-deploy-yo2x.onrender.com)
 
-[Render Dashboard](https://dashboard.render.com/web/srv-cufcgk56l47c73fiaagg/deploys/dep-cujr41ij1k6c73d1ceng)
-
 GitHub Repository [(GitHub Repository)](https://github.com/MTS-sip/Weather-Forever)
 
 ## Description
