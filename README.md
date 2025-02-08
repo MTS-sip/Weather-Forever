@@ -5,7 +5,6 @@
 Render Web Service Host https://render-deploy-yo2x.onrender.com
 
 GitHub Repository [(GitHub Repository)](https://github.com/MTS-sip/Weather-Forever)
-`SSH: git@github.com:MTS-sip/Weather-Forever.git`
 
 ## Description
 
@@ -32,9 +31,9 @@ Run `npm install`,
 
 ## Images
 
-![URL Mock up 1](./assets/Weather-Forever1.jpeg)
+![URL Mock up image 1](/render-app/assets/Weather-Forever1.jpg)
 
-![URL Mock up 2](./assets/Weather-Forever2.jpeg)
+![URL Mock up image 2](/render-app/assets/Weather-Forever2.jpg)
 
 ## License
 
@@ -53,6 +52,7 @@ Key technologies used for development:
 - NPM: Package manager for js [npm](https://www.npmjs.com/)
 - CoPilot [CoPilot for GitHub:](https://github.com/features/copilot)
 - HTML [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- CSS [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 
 ## Contributing
 
